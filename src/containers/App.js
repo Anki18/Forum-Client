@@ -22,7 +22,7 @@ class App extends Component {
 
         <div className="row">
           <div className="col-lg offset-4">
-            {!this.props.forum.accessToken ? (
+            {!localStorage.getItem("LoginResponse")? (
               <div className="login-container">
                 <LoginComponent {...this.props} />
               </div>
