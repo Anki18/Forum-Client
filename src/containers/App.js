@@ -12,23 +12,37 @@ import { forumActions } from "../actions";
 class App extends Component {
   constructor(props) {
     super(props);
+    this.logout = this.logout.bind(this);
+  }
+  logout(){
+    if(this.props.user.username || this.props.user.accessToken){
+      this.props.logout();
+    }
   }
   render() {
     return (
       <div className="container">
         <h3>
           <a href="/" className="brand-logo center">Coyote-Forum</a>
+          {this.props.user.username ? (<div className="right">
+            <h6 >Hello {this.props.user.username}</h6>
+            <input
+              type="button"
+              className ="btn waves-effect waves-light"
+              onClick={this.logout}
+              value="Logout" />
+          </div>) : null}
         </h3>
 
         <div className="row">
           <div className="col-lg offset-4">
-            {!localStorage.getItem("LoginResponse")? (
+            {!this.props.user.accessToken ? (
               <div className="login-container">
                 <LoginComponent {...this.props} />
               </div>
             ) :
               (<div>
-                <UserHomeComponent {...this.props}/>
+                <UserHomeComponent {...this.props} />
               </div>)
             }
 
@@ -62,7 +76,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    forum: state.Forum
+    user: state.User
   };
 }
 

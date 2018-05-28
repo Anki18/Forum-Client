@@ -13,6 +13,12 @@ export const setUserDetails = details => {
         payload: details
     };
 }
+
+export const clearToInitialState = () =>{
+    return {
+        type:"ClearToInitialState"
+    }
+}
 export const login = cred => {
     return dispatch => {
         axios.request({
@@ -25,6 +31,14 @@ export const login = cred => {
         }).catch(err =>
             console.log(err)
         );
+    }
+}
+
+export const logout =() =>{
+    return dispatch =>{
+        localStorage.removeItem("LoginResponse");
+        localStorage.removeItem("UserDetails");
+        dispatch(clearToInitialState());
     }
 }
 

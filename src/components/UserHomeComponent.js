@@ -3,12 +3,23 @@ import React, { Component } from 'react';
 class UserHomeComponent extends Component {
     constructor(props) {
         super(props);
-        props.getUserDetails(props.forum.userId, props.forum.accessToken);
+        props.getUserDetails(props.user.userId, props.user.accessToken);
     }
     render() {
         return (
             <div className="container">
-                <h1>Hello {this.props.forum.username}</h1>
+                <form onSubmit={this.onSubmit}>
+                    <h4>Ask Question</h4>
+                    <div className="input-field">
+                        <input type="text" name="title" />
+                        <label htmlFor="title">Title</label>
+                    </div>
+                    <div className="input-field col s12">
+                        <textarea id="textarea1" className="materialize-textarea"></textarea>
+                        <label for="textarea1">Content</label>
+                    </div>
+                    <input type="submit" value="Post" className="btn" />
+                </form>
             </div>
         )
     }

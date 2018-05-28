@@ -5,10 +5,6 @@ import ThreadComponent from "./ThreadComponent";
 class LoginComponent extends Component{
     constructor(props){
         super(props);
-        this.state = {
-          username:'',
-          password:''
-        }
         this.onSubmit = this.onSubmit.bind(this);
     }
     
