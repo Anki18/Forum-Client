@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class UserHomeComponent extends Component {
     constructor(props) {
         super(props);
-        props.getUserDetails(props.user.userId, props.user.accessToken);
+        if(!props.user.username && !props.user.email){
+            props.getUserDetails(props.user.userId, props.user.accessToken);
+        }
     }
     render() {
         return (
@@ -16,7 +18,7 @@ class UserHomeComponent extends Component {
                     </div>
                     <div className="input-field col s12">
                         <textarea id="textarea1" className="materialize-textarea"></textarea>
-                        <label for="textarea1">Content</label>
+                        <label htmlFor="textarea1">Content</label>
                     </div>
                     <input type="submit" value="Post" className="btn" />
                 </form>
