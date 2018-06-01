@@ -26,7 +26,11 @@ class App extends Component {
           <div>
             <Navbar {...this.props}/>
             <div className="container">
-              <Route exact path="/" component={()=><LoginComponent {...this.props}/>}  />
+            {this.props.user.accessToken ? 
+              (<Route exact path='/' component={()=><UserHomeComponent {...this.props}/>} />):
+              (<Route exact path="/" component={()=><LoginComponent {...this.props}/>} />)
+              } 
+              <Route exact path="/" component={()=><LoginComponent {...this.props}/>} />
               <Route exact path='/login' component={()=><LoginComponent {...this.props}/>} />
               <Route exact path='/userhome' component={()=><UserHomeComponent {...this.props}/>} />
               <Route exact path='/about' component={About} />
