@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
-import User from "./User";
+import User from "./user";
+import Threads from "./threads";
 
 const allReducers = combineReducers({
-    User: User
+    User: User,
+    Threads: Threads
 });
 
 export default allReducers;

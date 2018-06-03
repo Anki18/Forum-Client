@@ -4,6 +4,13 @@ import { NavLink } from 'react-router-dom';
 class Navbar extends Component {
   constructor(props) {
     super(props);
+    this.logout = this.logout.bind(this);
+  }
+  
+  logout() {
+    if (this.props.user.username || this.props.user.accessToken) {
+      this.props.logout();
+    }
   }
   render() {
     return (
@@ -34,10 +41,17 @@ class Navbar extends Component {
                   activeClassName="active"
                 >About</NavLink>
               </li>
+              <li>
+                <NavLink
+                  to='/threads'
+                  activeClassName="active"
+                >Questions</NavLink>
+              </li>
               {this.props.user.accessToken ? (<li>
                 <NavLink
                   to='/'
                   activeClassName="active"
+                  onClick={this.logout}
                 >Logout</NavLink>
               </li>) : null}
 

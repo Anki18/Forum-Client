@@ -2,41 +2,40 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Router,Route } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
 
 import Navbar from '../components/Navbar';
 import LoginComponent from '../components/LoginComponent';
 import UserHomeComponent from '../components/UserHomeComponent';
+import ThreadsComponent from '../components/ThreadsComponent';
 import About from '../components/About';
 import { forumActions } from "../actions";
+
+const history = createBrowserHistory();
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.logout = this.logout.bind(this);
-  }
-  logout() {
-    if (this.props.user.username || this.props.user.accessToken) {
-      this.props.logout();
-    }
   }
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
           <div>
             <Navbar {...this.props}/>
             <div className="container">
-            {this.props.user.accessToken ? 
-              (<Route exact path='/' component={()=><UserHomeComponent {...this.props}/>} />):
-              (<Route exact path="/" component={()=><LoginComponent {...this.props}/>} />)
-              } 
-              <Route exact path="/" component={()=><LoginComponent {...this.props}/>} />
-              <Route exact path='/login' component={()=><LoginComponent {...this.props}/>} />
-              <Route exact path='/userhome' component={()=><UserHomeComponent {...this.props}/>} />
+            {/* {this.props.user.accessToken ? 
+              (<Route exact path='/' component={()=><ThreadsComponent {...this.props} history={history}/>} />):
+              (<Route exact path="/" component={()=><LoginComponent {...this.props} history={history}/>} />)
+              } */}
+              <Route exact path="/" component={()=><LoginComponent {...this.props} history={history}/>} />
+              <Route exact path='/threads' component={()=><ThreadsComponent {...this.props} history={history}/>} /> 
+              <Route exact path='/login' component={()=><LoginComponent {...this.props} />} history={history}/>
+              <Route exact path='/userhome' component={()=><UserHomeComponent {...this.props} history={history}/>} />
               <Route exact path='/about' component={About} />
             </div>
           </div>
-          </BrowserRouter>
+          </Router>
 
       // <div className="container">
       //   <h3>
@@ -93,7 +92,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.User
+    user: state.User,
+    threads : state.Threads
   };
 }
 
